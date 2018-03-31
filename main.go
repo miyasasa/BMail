@@ -1,12 +1,12 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
+	"log"
+	"net/http"
+	"BMail/ping"
 	"BMail/config"
 	"github.com/gorilla/mux"
-	"log"
-	"BMail/ping"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 	router.HandleFunc("/ping", ping.Handle)
 
 	listen := fmt.Sprintf("%s:%s", configuration.Host, configuration.Port)
-	fmt.Println("Listening..." + listen)
+	log.Println("Listening..." + listen)
 
 	log.Fatal(http.ListenAndServe(listen, router))
 }
