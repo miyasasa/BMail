@@ -1,23 +1,23 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
 	"net/http"
-	"log"
 	"fmt"
-	"time"
+	"BMail/config"
+	"github.com/gorilla/mux"
+	"log"
+	"BMail/ping"
 )
-
-func handlePing(w http.ResponseWriter, r *http.Request) {
-	info := fmt.Sprintf("{ Time: %s }", time.Now().Format(time.RFC3339))
-	w.Write([]byte(info))
-}
 
 func main() {
 
-	router := mux.NewRouter()
-	router.HandleFunc("/ping", handlePing)
+	configuration := config.Init("develop")
 
-	fmt.Println("Listining Localhost:8080 port")
-	log.Fatal(http.ListenAndServe("localhost:8080", router))
+	router := mux.NewRouter()
+	router.HandleFunc("/ping", ping.Handle)
+
+	listen := fmt.Sprintf("%s:%s", configuration.Host, configuration.Port)
+	fmt.Println("Listening..." + listen)
+
+	log.Fatal(http.ListenAndServe(listen, router))
 }
