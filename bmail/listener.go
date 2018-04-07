@@ -13,8 +13,9 @@ func Send(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		w.Write([]byte("Invalid B-mail type"))
+		return
 	}
-
+	send(mail)
 	response.JsonResponse(w, mail)
 	defer r.Body.Close()
 }

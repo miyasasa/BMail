@@ -1,9 +1,14 @@
 package bmail
 
 type Bmail struct {
-	Header     string
 	From       string
 	Recipients []string
+	Cc         []string
 	Subject    string
-	Content    string
+	Content    Content
+}
+
+type Content struct {
+	ContentType string
+	Body        string
 }
