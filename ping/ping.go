@@ -1,12 +1,11 @@
 package ping
 
 import (
-	"fmt"
 	"time"
 	"net/http"
+	"BMail/response"
 )
 
-func Handle(w http.ResponseWriter, _ *http.Request) {
-	info := fmt.Sprintf("{ Time: %s }", time.Now().Format(time.RFC3339))
-	w.Write([]byte(info))
+func Pong(w http.ResponseWriter, _ *http.Request) {
+	response.JsonResponse(w, time.Now().Format(time.RFC3339))
 }
