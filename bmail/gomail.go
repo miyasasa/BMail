@@ -3,6 +3,7 @@ package bmail
 import (
 	"gopkg.in/gomail.v2"
 	"BMail/config"
+	"os"
 )
 
 func GenerateGoMail(mail Bmail) *gomail.Message {
@@ -14,7 +15,8 @@ func GenerateGoMail(mail Bmail) *gomail.Message {
 	message.SetHeader("Subject", mail.Subject)
 	message.SetBody(mail.Content.ContentType, mail.Content.Body)
 
-	//message.Attach("/home/Alex/lolcat.jpg")
+	dir, _ := os.Getwd()
+	message.Attach(dir + "/.disk/test.pdf")
 
 	return message
 }
