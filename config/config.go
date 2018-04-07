@@ -6,13 +6,17 @@ import (
 )
 
 type Configuration struct {
-	Host string
-	Port string
+	Host           string
+	Port           string
+	SmtpServer     string
+	SmtpServerPort int
+	Username       string
+	Password       string
 }
 
-func Init(env string) Configuration {
+var Config Configuration
 
-	var configuration Configuration
+func Init(env string) Configuration {
 
 	dir, _ := os.Getwd()
 	conf, err := os.Open(dir + "/config/" + env + ".json")
@@ -22,10 +26,10 @@ func Init(env string) Configuration {
 		panic("Configuration file can not opened")
 	}
 
-	err = json.NewDecoder(conf).Decode(&configuration)
+	err = json.NewDecoder(conf).Decode(&Config)
 	if err != nil {
 		panic("Configuration can not initial")
 	}
 
-	return configuration
+	return Config
 }

@@ -12,13 +12,13 @@ import (
 
 func main() {
 
-	configuration := config.Init("develop")
+	conf := config.Init("develop")
 
 	router := mux.NewRouter()
 	router.HandleFunc("/ping", ping.Pong).Methods("GET")
 	router.HandleFunc("/send", bmail.Send).Methods("POST")
 
-	listen := fmt.Sprintf("%s:%s", configuration.Host, configuration.Port)
+	listen := fmt.Sprintf("%s:%s", conf.Host, conf.Port)
 	log.Println("Listening..." + listen)
 
 	log.Fatal(http.ListenAndServe(listen, router))
