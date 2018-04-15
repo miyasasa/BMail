@@ -1,7 +1,6 @@
 package bmail
 
 import (
-	"gopkg.in/gomail.v2"
 	"os"
 	"github.com/SebastiaanKlippert/go-wkhtmltopdf"
 	"strings"
@@ -9,7 +8,7 @@ import (
 	"bytes"
 )
 
-func generatePDFfromHTML(attachment Attachment) {
+func generatePDFFromHTML(attachment Attachment) string {
 
 	pdfg := wkhtmltopdf.NewPDFPreparer()
 	pdfg.AddPage(wkhtmltopdf.NewPageReader(strings.NewReader(attachment.Body)))
@@ -31,24 +30,9 @@ func generatePDFfromHTML(attachment Attachment) {
 	}
 
 	dir, _ := os.Getwd()
-	pdfgFromJSON.WriteFile(dir + "/.disk/" + attachment.Name + ".pdf")
+	fileName := dir + "/.disk/" + attachment.Name + ".pdf"
 
-}
+	pdfgFromJSON.WriteFile(fileName)
 
-func GenerateGoMail(mail Bmail) *gomail.Message {
-
-	message := gomail.NewMessage()
-	message.SetHeader("From", mail.From)
-	message.SetHeader("To", mail.Recipients ...)
-	message.SetHeader("Cc", mail.Cc ...)
-	message.SetHeader("Subject", mail.Subject)
-	message.SetBody(mail.Content.ContentType, mail.Content.Body)
-
-	dir, _ := os.Getwd()
-	for _, attachment := range mail.Attachments {
-		generatePDFfromHTML(attachment)
-		message.Attach(dir + "/.disk/" + attachment.Name + ".pdf")
-	}
-
-	return message
+	return fileName
 }
