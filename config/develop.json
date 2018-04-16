@@ -1,8 +1,0 @@
-{
-  "Host": "localhost",
-  "Port": "8080",
-  "SmtpServer": "smtp.gmail.com",
-  "SmtpServerPort": 587,
-  "Username": "vyasinw@gmail.com",
-  "Password": "11wext11"
-}
